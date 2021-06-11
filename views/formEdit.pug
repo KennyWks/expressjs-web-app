@@ -1,0 +1,27 @@
+extends layout
+block content
+    .container
+        .row
+            .col-md-6
+                form(method='post' action='/mahasiswa/update')
+                    input#id(type='hidden', name='id' value=mahasiswa.id)
+                    .form-group
+                        label(for='nama') Nama
+                        input#nama.form-control(type='text', name='nama' value=mahasiswa.nama required)
+                    .form-group
+                        label(for='nim') NIM
+                        input#nim.form-control(type='number' name='nim' value=mahasiswa.nim required)
+                    .form-group
+                        label(for='email') Email
+                        input#email.form-control(type='email' name='email' value=mahasiswa.email required)
+                        small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+                    .form-group
+                        label(for='prodi') Prodi
+                        select#prodi.form-control(name='prodi' required)
+                            option(value='') Pilih Prodi
+                                each value, i in prodi
+                                    if mahasiswa.prodi == value.name 
+                                        option(value=value.name selected)=value.name 
+                                    else 
+                                        option(value=value.name)=value.name
+                    button.btn.btn-primary(type='submit') Submit

@@ -1,0 +1,17 @@
+extends layout
+block content
+    .container
+        h3 #{title}
+        .row
+            .col-md-6
+                form(method='post' action='/users/register')
+                    .form-group
+                        label(for='username') Username
+                        input#username.form-control(type='text', name="username" )
+                    .form-group
+                        label(for='password') Password
+                        input#password.form-control(type='password' name="password" )
+                    .form-group
+                        label(for='password2') Confirm password
+                        input#password2.form-control(type='password' name="password2" )
+                    button.btn.btn-primary(type='submit') Submit

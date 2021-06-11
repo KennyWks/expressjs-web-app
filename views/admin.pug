@@ -1,0 +1,23 @@
+extends layout
+block content
+    .container
+        h1 Manage #{title}
+        a.btn.mb-4.btn-primary(href='/mahasiswa/formCreate') Add Mahasiswa
+        table.table
+                tr
+                    th No
+                    th NIM
+                    th Nama
+                    th Email
+                    th Prodi
+                    th Action
+                each mhs, i in mahasiswa
+                    tr
+                        td= i+1
+                        td= mhs.nim
+                        td= mhs.nama
+                        td= mhs.email
+                        td= mhs.prodi
+                        td
+                            a.badge.badge-warning(href='/mahasiswa/'+mhs.id) Detail
+                        

@@ -1,0 +1,20 @@
+extends layout
+block content
+    .container
+        .row.mt-3
+            .col
+                .card(style='width: 27rem;')
+                    .card-body
+                        h5.card-title= mahasiswa.nama
+                        h6.card-subtitle.mb-2.text-muted=mahasiswa.nim
+                        div.card-text.mb-3 
+                        = mahasiswa.email +' | '+ mahasiswa.prodi
+                        .row
+                            .col-sm-2
+                                a.btn.btn-success(href='/mahasiswa/formEdit/'+mahasiswa.id) Edit
+                            .col-sm-5
+                                a.btn.btn-danger#delete(href='#' data-id=mahasiswa.id) Delete - Ajax
+                            .col-sm-5
+                                form(action='/mahasiswa/delete' method='post')
+                                    input#id(type='hidden', name='id' value=mahasiswa.id)
+                                    button.btn.btn-danger(type='submit') Delete - Post
