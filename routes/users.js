@@ -1,6 +1,6 @@
 const UserRouter = require("express").Router();
-const ValidationUsers = require("../middleware/validationUsers");
-const ValidationLogin = require("../middleware/validationLogin");
+const ValidationUsers = require("../middleware/validationFormRegister");
+const Auth = require("../middleware/auth");
 
 const {
   GetDetailUserController,
@@ -11,11 +11,12 @@ const {
   LogoutController,
 } = require("../controllers/users");
 
-UserRouter.get("/formRegister", GetFormRegisterController);
+UserRouter.get("/", GetFormRegisterController);
+UserRouter.get("/formRegister", Auth, GetFormRegisterController);
 UserRouter.get("/formLogin", GetFormLoginController);
-UserRouter.get("/logout", LogoutController);
+UserRouter.get("/logout", Auth, LogoutController);
+UserRouter.post("/register", Auth, ValidationUsers, RegisterController);
+UserRouter.post("/login", LoginController);
 UserRouter.get("/:id", GetDetailUserController);
-UserRouter.post("/register", ValidationUsers, RegisterController);
-UserRouter.post("/login", ValidationLogin, LoginController);
 
 module.exports = UserRouter;

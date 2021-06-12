@@ -52,17 +52,17 @@ require("./config/passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('*', function (req, res, next) {
+app.get("*", function (req, res, next) {
   res.locals.user = req.user || null;
   next();
-})
+});
 
 const home = require("./routes/home");
 app.use("/", home);
 
-//routes for GET mahasiswa
-const admin = require("./routes/admin");
-app.use("/mahasiswa", admin);
+//routes for GET student
+const student = require("./routes/student");
+app.use("/student", student);
 
 //routes for users
 const users = require("./routes/users");
@@ -80,17 +80,17 @@ app.listen(PORT, () => {
   console.log(`Server Running On Port ${PORT}`);
 });
 
-// const GetAllDataMhs = require("./models/mahasiswa");
-// app.get("/mahasiswa", (req, res) => {
+// const GetAllDataMhs = require("./models/student");
+// app.get("/student", (req, res) => {
 //     const resultQuery = GetAllDataMhs();
 //     resultQuery.then(response => {
-//         res.render('mahasiswa', {
-//             title: 'mahasiswa',
-//             mahasiswa: response[1]
+//         res.render('student', {
+//             title: 'student',
+//             student: response[1]
 //         })
 //     }).catch(response => console.log(response));
 
-// let mahasiswa = [{
+// let student = [{
 //         nim: 16120012,
 //         name: "rio"
 //     },
@@ -103,8 +103,8 @@ app.listen(PORT, () => {
 //         name: "ansel"
 //     }
 // ];
-// res.render('mahasiswa', {
-//     title: 'mahasiswa',
-//     mahasiswa: response
+// res.render('student', {
+//     title: 'student',
+//     student: response
 // })
 // })

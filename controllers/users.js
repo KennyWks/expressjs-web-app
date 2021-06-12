@@ -75,9 +75,6 @@ exports.GetFormLoginController = (req, res) => {
 exports.GetDetailUserController = async (req, res) => {
   try {
     const result = await GetDetailUserModel(req.body.username);
-    // res.render("detailMahasiswa", {
-    //   mahasiswa: result[1][0],
-    // });
   } catch (error) {
     console.log(error);
     res.status(404).send({
@@ -90,7 +87,7 @@ exports.GetDetailUserController = async (req, res) => {
 
 exports.LoginController = (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/mahasiswa",
+    successRedirect: "/student",
     failureRedirect: "/users/formLogin",
     failureFlash: true,
   })(req, res, next);

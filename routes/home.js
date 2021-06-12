@@ -1,8 +1,6 @@
 const HomeRouter = require("express").Router();
 
-const {
-  GetHomeController,
-} = require("../controllers/mahasiswa");
+const { GetHomeController } = require("../controllers/student");
 
 HomeRouter.get("/", GetHomeController);
 

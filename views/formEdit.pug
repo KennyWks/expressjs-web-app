@@ -3,24 +3,24 @@ block content
     .container
         .row
             .col-md-6
-                form(method='post' action='/mahasiswa/update')
-                    input#id(type='hidden', name='id' value=mahasiswa.id)
+                form(method='post' action='/student/update')
+                    input#id(type='hidden', name='id' value=student.id)
                     .form-group
-                        label(for='nama') Nama
-                        input#nama.form-control(type='text', name='nama' value=mahasiswa.nama required)
+                        label(for='name') Name
+                        input#name.form-control(type='text', name='name' value=student.name required)
                     .form-group
                         label(for='nim') NIM
-                        input#nim.form-control(type='number' name='nim' value=mahasiswa.nim required)
+                        input#nim.form-control(type='number' name='nim' value=student.nim required)
                     .form-group
                         label(for='email') Email
-                        input#email.form-control(type='email' name='email' value=mahasiswa.email required)
+                        input#email.form-control(type='email' name='email' value=student.email required)
                         small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
                     .form-group
-                        label(for='prodi') Prodi
-                        select#prodi.form-control(name='prodi' required)
-                            option(value='') Pilih Prodi
-                                each value, i in prodi
-                                    if mahasiswa.prodi == value.name 
+                        label(for='major') Major
+                        select#major.form-control(name='major' required)
+                            option(value='') Select Major
+                                each value, i in major
+                                    if student.major == value.name 
                                         option(value=value.name selected)=value.name 
                                     else 
                                         option(value=value.name)=value.name

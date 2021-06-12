@@ -1,19 +1,17 @@
 const { validationResult } = require("express-validator");
 const {
-  CreateMahasiswaModel,
-  GetAllMahasiswaModel,
-  GetDetailMahasiswaModel,
-  UpdateMahasiswaModel,
-  DeleteMahasiswaModel,
-} = require("../models/mahasiswa");
+  CreateStudentModel,
+  GetAllStudentModel,
+  GetDetailStudentModel,
+  UpdateStudentModel,
+  DeleteStudentModel,
+} = require("../models/student");
 
 exports.GetHomeController = async (req, res) => {
   try {
-    const result = await GetAllMahasiswaModel();
+    const result = await GetAllStudentModel();
     res.render("home", {
-      title: "Data mahasiswa",
       navbar: "My JS Web",
-      mahasiswa: result[1],
     });
   } catch (error) {
     console.log(error);
@@ -25,9 +23,9 @@ exports.GetHomeController = async (req, res) => {
   }
 };
 
-exports.GetFormCreateMahasiswaController = (req, res) => {
+exports.GetFormCreateStudentController = (req, res) => {
   try {
-    const prodi = [
+    const major = [
       {
         id: 1,
         name: "Sistem Informasi S1",
@@ -42,9 +40,9 @@ exports.GetFormCreateMahasiswaController = (req, res) => {
       },
     ];
     res.render("formCreate", {
-      title: "Form Create New Mahasiswa",
+      title: "Form Create New Student",
       navbar: "My JS Web",
-      prodi: prodi,
+      major: major,
     });
   } catch (error) {
     console.log(error);
@@ -56,12 +54,12 @@ exports.GetFormCreateMahasiswaController = (req, res) => {
   }
 };
 
-exports.CreateMahasiswaController = async (req, res) => {
+exports.CreateStudentController = async (req, res) => {
   try {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      const prodi = [
+      const major = [
         {
           id: 1,
           name: "Sistem Informasi S1",
@@ -77,20 +75,20 @@ exports.CreateMahasiswaController = async (req, res) => {
       ];
       res.render("formCreate", {
         errors: errors.array(),
-        title: "Form Create New Mahasiswa",
+        title: "Form Create New Student",
         navbar: "My JS Web",
-        prodi: prodi,
+        major: major,
       });
     } else {
       const data = {
-        nama: req.body.nama,
+        name: req.body.name,
         nim: req.body.nim,
         email: req.body.email,
-        prodi: req.body.prodi,
+        major: req.body.major,
       };
-      const result = await CreateMahasiswaModel(data);
-      req.flash("success", "Mahasiswa is added");
-      res.redirect("/mahasiswa");
+      const result = await CreateStudentModel(data);
+      req.flash("success", "Student is added");
+      res.redirect("/student");
     }
   } catch (error) {
     console.log(error);
@@ -102,9 +100,9 @@ exports.CreateMahasiswaController = async (req, res) => {
   }
 };
 
-exports.GetFormUpdateMahasiswaController = async (req, res) => {
+exports.GetFormUpdateStudentController = async (req, res) => {
   try {
-    const prodi = [
+    const major = [
       {
         id: 1,
         name: "Sistem Informasi S1",
@@ -118,12 +116,12 @@ exports.GetFormUpdateMahasiswaController = async (req, res) => {
         name: "Teknik Informatika D3",
       },
     ];
-    const result = await GetDetailMahasiswaModel(req.params.id);
+    const result = await GetDetailStudentModel(req.params.id);
     res.render("formEdit", {
-      title: "Form Edit Mahasiswa",
+      title: "Form Edit Student",
       navbar: "My JS Web",
-      prodi: prodi,
-      mahasiswa: result[1][0],
+      major: major,
+      student: result[1][0],
     });
   } catch (error) {
     console.log(error);
@@ -135,17 +133,17 @@ exports.GetFormUpdateMahasiswaController = async (req, res) => {
   }
 };
 
-exports.UpdateMahasiswaController = async (req, res) => {
+exports.UpdateStudentController = async (req, res) => {
   try {
     const dataUpdate = {};
-    const fillAble = ["nama", "nim", "email", "prodi"];
+    const fillAble = ["name", "nim", "email", "major"];
     fillAble.forEach((v) => {
       if (req.body[v]) {
         dataUpdate[v] = req.body[v];
       }
     });
-    const result = await UpdateMahasiswaModel(req.body.id, dataUpdate);
-    res.redirect("/mahasiswa/" + req.body.id);
+    const result = await UpdateStudentModel(req.body.id, dataUpdate);
+    res.redirect("/student/" + req.body.id);
   } catch (error) {
     console.log(error);
     res.status(404).send({
@@ -156,13 +154,13 @@ exports.UpdateMahasiswaController = async (req, res) => {
   }
 };
 
-exports.GetAllMahasiswaController = async (req, res) => {
+exports.GetAllStudentController = async (req, res) => {
   try {
-    const result = await GetAllMahasiswaModel();
-    res.render("admin", {
-      title: "Data mahasiswa",
+    const result = await GetAllStudentModel();
+    res.render("student", {
+      title: "Data student",
       navbar: "My JS Web",
-      mahasiswa: result[1],
+      student: result[1],
     });
   } catch (error) {
     console.log(error);
@@ -174,13 +172,13 @@ exports.GetAllMahasiswaController = async (req, res) => {
   }
 };
 
-exports.GetDetailMahasiswaController = async (req, res) => {
+exports.GetDetailStudentController = async (req, res) => {
   try {
-    const result = await GetDetailMahasiswaModel(req.params.id);
-    res.render("detailMahasiswa", {
-      title: `Data Mahasiswa ${req.params.id}`,
+    const result = await GetDetailStudentModel(req.params.id);
+    res.render("detailStudent", {
+      title: `Data Student ${req.params.id}`,
       navbar: "My JS Web",
-      mahasiswa: result[1][0],
+      student: result[1][0],
     });
   } catch (error) {
     console.log(error);
@@ -192,10 +190,10 @@ exports.GetDetailMahasiswaController = async (req, res) => {
   }
 };
 
-exports.DeleteMahasiswaAjaxController = async (req, res) => {
+exports.DeleteStudentAjaxController = async (req, res) => {
   try {
-    const result = await DeleteMahasiswaModel(req.params.id);
-    res.send("delete is succes");
+    const result = await DeleteStudentModel(req.params.id);
+    res.send("Student is deleted");
   } catch (error) {
     console.log(error);
     res.status(404).send({
@@ -206,10 +204,11 @@ exports.DeleteMahasiswaAjaxController = async (req, res) => {
   }
 };
 
-exports.DeleteMahasiswaController = async (req, res) => {
+exports.DeleteStudentController = async (req, res) => {
   try {
-    const result = await DeleteMahasiswaModel(req.body.id);
-    res.redirect("/mahasiswa");
+    const result = await DeleteStudentModel(req.body.id);
+    req.flash("success", "Student is deleted");
+    res.redirect("/student");
   } catch (error) {
     console.log(error);
     res.status(404).send({

@@ -11,11 +11,11 @@ html
                 span.navbar-toggler-icon
             #navbarNavAltMarkup.collapse.navbar-collapse
                 .navbar-nav
-                a.nav-item.nav-link(href='/mahasiswa') Mahasiswa
+                a.nav-item.nav-link(href='/student') Student
                 if user
+                    a.nav-item.nav-link(href='/users/formRegister') Register
                     a.nav-item.nav-link(href='/users/logout') Logout
                 else
-                    a.nav-item.nav-link(href='/users/formRegister') Register
                     a.nav-item.nav-link(href='/users/formLogin') Login
     .container.mt-3
         != messages('message', locals)

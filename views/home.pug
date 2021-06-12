@@ -1,19 +1,17 @@
 extends layout
 block content
     .container
-        h1 Page #{title}
-        table.table
-                tr
-                    th No
-                    th NIM
-                    th Nama
-                    th Email
-                    th Prodi
-                each mhs, i in mahasiswa
-                    tr
-                        td= i+1
-                        td= mhs.nim
-                        td= mhs.nama
-                        td= mhs.email
-                        td= mhs.prodi
+        .row
+            .col 
+                .jumbotron
+                    h1.display-4 Hello!
+                    p.lead
+                        | Welcome to my simple web application! this app use for manage student data.                        
+                    hr.my-4
+                    p.my-0
+                        | My web app using using Express.js as web application framework and Mysql as DBMS in back-end.
+                    p
+                        | In front-end, I'm use Pug Template Engine with Boostrap CSS framework as library for styling.
+                    a.btn.btn-primary.btn-lg(href='/student' role='button') See more
+
                         

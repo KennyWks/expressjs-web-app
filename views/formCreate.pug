@@ -3,10 +3,10 @@ block content
     .container
         .row
             .col-md-6
-                form(method='post' action='/mahasiswa/create')
+                form(method='post' action='/student/create')
                     .form-group
-                        label(for='nama') Nama
-                        input#nama.form-control(type='text', name="nama" )
+                        label(for='name') Name
+                        input#name.form-control(type='text', name="name" )
                     .form-group
                         label(for='nim') NIM
                         input#nim.form-control(type='number' name="nim" )
@@ -15,9 +15,9 @@ block content
                         input#email.form-control(type='email' name="email" )
                         small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
                     .form-group
-                        label(for='prodi') Prodi
-                        select#prodi.form-control(name="prodi" )
-                            option(value='') Pilih Prodi
-                            each value, i in prodi
+                        label(for='major') Major
+                        select#major.form-control(name="major" )
+                            option(value='') Select Major
+                            each value, i in major
                                 option(value=value.name)=value.name
                     button.btn.btn-primary(type='submit') Submit
